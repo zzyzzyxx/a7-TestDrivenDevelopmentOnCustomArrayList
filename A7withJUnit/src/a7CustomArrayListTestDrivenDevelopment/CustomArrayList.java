@@ -30,15 +30,11 @@ public class CustomArrayList<T> implements CustomList<T> {
         }
  
         newItems[index] = item;
- 
         for (int i = index + 1; i <= items.length; i++) {
         	newItems[i] = items[i - 1];
         }
         items = newItems;
-        
-        
-        System.out.println(Arrays.toString(items));
-        //prints out all 22 indexes, with 19 null - probably because of items.length * 2?
+        size++;
         return true;
         
         
@@ -53,7 +49,7 @@ public class CustomArrayList<T> implements CustomList<T> {
 	@SuppressWarnings("unchecked")
 	@Override	
 	public T get(int index) throws IndexOutOfBoundsException {
-		// TODO Auto-generated method stub
+		
 		return (T) items[index];
 	}
 
@@ -67,6 +63,7 @@ public class CustomArrayList<T> implements CustomList<T> {
 		    }
 		}
 		items = newShorterItems;
+		size--;
 		return (T) items[index];
 	}
 
