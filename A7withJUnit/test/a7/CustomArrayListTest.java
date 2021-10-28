@@ -35,14 +35,14 @@ class CustomArrayListTest {
 		//arrange
 		CustomList<Integer> sut = new CustomArrayList<>();
 		//act
-		for(int i =0; i <= 10; i++) {
+		for(int i =0; i <= 20; i++) {
 			sut.add(i+1);
 			
 		}
 		//assert
 		for(int i =0; i <= 10; i++) {
 		assertEquals(i+1, sut.get(i));}
-		assertEquals(11, sut.getSize());
+		assertEquals(21, sut.getSize());
 	}
 	
 	@Test	
@@ -50,7 +50,7 @@ class CustomArrayListTest {
 		//arrange
 		CustomList<String> sut = new CustomArrayList<>();
 		//act
-		for(int i = 1; i < 11; i++) {
+		for(int i = 1; i < 20; i++) {
 			sut.add("index"+i);
 		}
 		sut.add(0, "addedItem");
@@ -60,8 +60,8 @@ class CustomArrayListTest {
 		//what would we expect to happen?
 		//a String "addedItem" stored in the third index
 		assertEquals("addedItem", expectedResult);
-		//	expected size of 1
-		assertEquals(11, expectedSize); 
+		//	expected size of 11
+		assertEquals(20, expectedSize); 
 	}
 	
 	@Test
@@ -69,7 +69,7 @@ class CustomArrayListTest {
 		//arrange
 		CustomList<String> sut = new CustomArrayList<>();
 		//act
-		for(int i = 0; i < 11; i++) {
+		for(int i = 0; i < 20; i++) {
 			sut.add("index"+i);
 		}
 		sut.add(5, "addedItem");
@@ -79,10 +79,29 @@ class CustomArrayListTest {
 		//what would we expect to happen?
 		//a String "addedItem" stored in the index 5
 		assertEquals("addedItem", expectedResult);
-		//	expected size of 1
-		assertEquals(12, expectedSize);
+		//	expected size of 12
+		assertEquals(21, expectedSize);
 	
 		
+	}
+	
+	@Test
+	void should_add_item_to_large_list_in_the_middle() {
+		//arrange
+		CustomList<String> sut = new CustomArrayList<>();
+		//act
+		for(int i = 0; i < 10000; i++) {
+			sut.add("index"+i);
+		}
+		sut.add(5000, "addedItem");
+		String expectedResult = sut.get(5000);
+		Integer expectedSize = sut.getSize();
+		//assert
+		//what would we expect to happen?
+		//a String "addedItem" stored in the index 5
+		assertEquals("addedItem", expectedResult);
+		//	expected size of 1
+		assertEquals(10001, expectedSize);
 	}
 	
 	@Test	
@@ -90,7 +109,7 @@ class CustomArrayListTest {
 		//arrange
 		CustomList<String> sut = new CustomArrayList<>();
 		//act
-		for(int i = 0; i < 11; i++) {
+		for(int i = 0; i < 20; i++) {
 			sut.add("index"+i);
 		}
 		sut.add(12, "addedItem");
@@ -101,7 +120,7 @@ class CustomArrayListTest {
 		//a String "addedItem" stored in the index 12
 				assertEquals("addedItem", expectedResult);
 				//	expected size of 1
-				assertEquals(12, expectedSize);
+				assertEquals(21, expectedSize);
  
 	}
 	
@@ -124,7 +143,7 @@ class CustomArrayListTest {
 		//arrange
 		CustomList<String> sut = new CustomArrayList<>();
 		//act
-		for(int i = 0; i < 11; i++) {
+		for(int i = 0; i < 20; i++) {
 			sut.add("index"+i);
 		}
 		sut.add(5, "addedItem");
@@ -133,7 +152,7 @@ class CustomArrayListTest {
 		//assert
 		//what would we expect to happen?
 		//a String with index 5 removed from the list and list size 11
-		assertEquals(11, expectedSize);	
+		assertEquals(20, expectedSize);	
 	}
 
 	@Test
@@ -141,7 +160,7 @@ class CustomArrayListTest {
 		//arrange
 		CustomList<String> sut = new CustomArrayList<>();
 		//act
-		for(int i = 0; i < 11; i++) {
+		for(int i = 0; i < 20; i++) {
 			sut.add("index"+i);
 		}
 		sut.add(12, "addedItem");
@@ -149,8 +168,48 @@ class CustomArrayListTest {
 		Integer expectedSize = sut.getSize();
 		//assert
 		//what would we expect to happen?
-		assertEquals(11, expectedSize);	
-	
+		assertEquals(20, expectedSize);	
 	}
 	
+	@Test
+	void should_throw_exception_when_out_of_bounds() {
+		//arrange
+		CustomList<String> sut = new CustomArrayList<>();
+		//act
+		try {
+			sut.get(20);
+		} catch (IndexOutOfBoundsException e) {
+			
+		}
+		//assert
+		
+	}
+	
+	@Test
+	void should_throw_exception_when_add_is_out_of_bounds() {
+			//arrange
+			CustomList<String> sut = new CustomArrayList<>();
+			//act
+			try {
+				sut.add(20, "addedItem");
+			} catch (IndexOutOfBoundsException e) {
+				
+			}
+			//assert
+			fail("No IndexOutOfBoundsException"); 
+	}
+	
+	@Test
+	void should_throw_exception_when_remove_is_out_of_bounds() {
+			//arrange
+			CustomList<String> sut = new CustomArrayList<>();
+			//act
+			try {
+				sut.remove(20);
+			} catch (IndexOutOfBoundsException e) {
+				
+			}
+			//assert
+			fail("No IndexOutOfBoundsException"); 
+	}
 }
